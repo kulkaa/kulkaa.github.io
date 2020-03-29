@@ -28,7 +28,7 @@ async function loop(itterations, delayInSeconds) {
   }
 }
 
-async function main() {
+export async function main() {
   resultObject = {
     status: undefined,
     available: undefined,
