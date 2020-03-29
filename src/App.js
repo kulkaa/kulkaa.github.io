@@ -1,14 +1,16 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import * as barbora from "./barbora";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <button onClick={barbora.main}>Click me! 00670</button>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Edit <code>src/App.js</code> and save to reload>>>.
         </p>
         <a
           className="App-link"

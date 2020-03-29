@@ -1,19 +1,19 @@
-const axios = require("axios");
-const telegram = require("./telegram.js");
-const dateFormat = require("dateformat");
+import axios from "axios";
+import * as telegram from "./telegram.js";
+import dateFormat from "dateformat";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const url = "https://www.barbora.lt/api/eshop/v1/cart/deliveries";
 const cookie =
   "f5avraaaaaaaaaaaaaaaa_session_=MMNKLAEDKFMJDAPKKMJLHLBMNIANBGBGJDPKCLFHKNHLAFFPEGCLHNMIGLEACIABDPMDBLDLNCPNLHFHDPNABOJOMKLNLEJBGNDIIJPCGHNHMDFDEBALPMDGIIGKAHEF; permissionToUseCookies=true; rememberMe=true; order=discountDesc; f5avraaaaaaaaaaaaaaaa_session_=NPANENCIKPJDDODMBODGLHFFHIBELBPNJNPDLOJKNCEDDOBPGPMENHFGOOFBOBDEPLNDHCKBJCPLCMKFODKABADJLKKBEGFIFAOAOHKMJOPNMAJAMPBKGHAFFFGDHKKN; region=barbora.lt; brbLastLoginDay=2020-03-25; .BRBAUTH=ObT7cxQf3cTyP8fH-ODruUicp2_LQtBK11bNTmt322xLNmyBPoCBFWWNv0jCtUwsLuoZdhUQvkc2FTSWBv5kgb8E5Bkp-G0glYwj5iJC9WCd1Uiepu8tFXFhaBOKiqnOUgiwh3VhsfGOdiK7JtDCxQ2";
 const telegramChatId = 905470537;
-
-var resultObject;
+const authHeader = "Basic YXBpa2V5OlNlY3JldEtleQ==";
 
 console.log("barbora!!!");
 
-document.cookie = cookie;
+var resultObject;
+
 //main();
-//loop(180, 60);
+loop(180, 60);
 
 function task(index, delayInSeconds) {
   setTimeout(function() {
@@ -28,7 +28,7 @@ async function loop(itterations, delayInSeconds) {
   }
 }
 
-export async function main() {
+async function main() {
   resultObject = {
     status: undefined,
     available: undefined,
@@ -50,21 +50,15 @@ export async function main() {
   await report(resultObject);
 }
 
-const axiosConfig = {
-  headers: {
-    "content-Type": "application/json",
-    Accept: "/",
-    "Cache-Control": "no-cache",
-    Authorization: "Basic YXBpa2V5OlNlY3JldEtleQ==",
-    Cookie: document.cookie
-  }
-  //credentials: "same-origin"
-};
-axios.defaults.withCredentials = true;
-
 async function getData() {
   return await axios
-    .get(proxyurl + url, axiosConfig)
+    .get(url, {
+      headers: {
+        Authorization: "Basic YXBpa2V5OlNlY3JldEtleQ==",
+        Cookie:
+          "f5avraaaaaaaaaaaaaaaa_session_=MMNKLAEDKFMJDAPKKMJLHLBMNIANBGBGJDPKCLFHKNHLAFFPEGCLHNMIGLEACIABDPMDBLDLNCPNLHFHDPNABOJOMKLNLEJBGNDIIJPCGHNHMDFDEBALPMDGIIGKAHEF; permissionToUseCookies=true; rememberMe=true; order=discountDesc; f5avraaaaaaaaaaaaaaaa_session_=NPANENCIKPJDDODMBODGLHFFHIBELBPNJNPDLOJKNCEDDOBPGPMENHFGOOFBOBDEPLNDHCKBJCPLCMKFODKABADJLKKBEGFIFAOAOHKMJOPNMAJAMPBKGHAFFFGDHKKN; region=barbora.lt; brbLastLoginDay=2020-03-25; .BRBAUTH=ObT7cxQf3cTyP8fH-ODruUicp2_LQtBK11bNTmt322xLNmyBPoCBFWWNv0jCtUwsLuoZdhUQvkc2FTSWBv5kgb8E5Bkp-G0glYwj5iJC9WCd1Uiepu8tFXFhaBOKiqnOUgiwh3VhsfGOdiK7JtDCxQ2"
+      }
+    })
     .then(response => {
       return response;
     })
